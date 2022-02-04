@@ -1,7 +1,6 @@
-import Header from './components/Header';
 import Loggin from './components/Loggin';
-import ProductContainer from './components/ProductContainer';
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+import ProductContainer from './pages/Products';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppContext } from './components/context/AppContext';
 import { useContext } from 'react';
 
@@ -12,7 +11,8 @@ function App() {
    return (
       <BrowserRouter>
          <Routes>
-            <Route path="/" element={<Loggin />} />
+            <Route path="/home" element={<Loggin />} />
+            <Route path="/" element={<Navigate replace to="/home" />} />
             <Route path="/products" element={<ProductContainer />} />
          </Routes>
       </BrowserRouter>

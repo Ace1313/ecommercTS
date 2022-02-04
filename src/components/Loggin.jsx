@@ -2,15 +2,23 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AppContext } from './context/AppContext';
 import { mockInfo } from '../userInformation';
+import { useNavigate } from 'react-router-dom';
 
 function Loggin() {
    const { dispatch, state } = useContext(AppContext);
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   let navigate = useNavigate();
 
    function submitHandler() {
-      if (mockInfo[0].email === email && mockInfo[0].password === password) {
+      if (
+         mockInfo[0].email === email &&
+         mockInfo[0].password === password &&
+         state.isLoggedIn
+      ) {
          dispatch({ type: 'SET_LOGGED_IN' });
+         navigate('/products');
+         localStorage.setItem('isLoggedIn', JSON.stringify(!state.isLoggedIn));
       } else {
          return console.log('false', state);
       }

@@ -1,11 +1,11 @@
-import React from 'react';
+import ProductList from '../components/ProductList';
 
-function Products() {
+function ProductContainer() {
    return (
       <div>
-         <h1>Hejsan</h1>
+         <ProductList />
       </div>
    );
 }
 
-export default Products;
+export default ProductContainer;
