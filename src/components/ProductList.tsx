@@ -1,7 +1,7 @@
 import React from 'react';
 import { mockProducts } from '../mockProducts';
 import { ProductItem } from '../interface/ecomerce.interface';
-import styled from 'styled-components';
+
 import ProductItemCard from './ProductItemCard';
 
 function ProductList() {
