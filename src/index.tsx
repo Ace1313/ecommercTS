@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './components/context/AppContext';
-import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
    <React.StrictMode>

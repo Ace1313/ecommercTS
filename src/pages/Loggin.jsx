@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { AppContext } from './context/AppContext';
+import { AppContext } from '../components/context/AppContext';
 import { mockInfo } from '../userInformation';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,14 +11,10 @@ function Loggin() {
    let navigate = useNavigate();
 
    function submitHandler() {
-      if (
-         mockInfo[0].email === email &&
-         mockInfo[0].password === password &&
-         state.isLoggedIn
-      ) {
+      if (mockInfo[0].email === email && mockInfo[0].password === password) {
          dispatch({ type: 'SET_LOGGED_IN' });
          navigate('/products');
-         localStorage.setItem('isLoggedIn', JSON.stringify(!state.isLoggedIn));
+         // localStorage.setItem('isLoggedIn', JSON.stringify(!state.isLoggedIn));
       } else {
          return console.log('false', state);
       }

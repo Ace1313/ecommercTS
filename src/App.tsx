@@ -1,4 +1,4 @@
-import Loggin from './components/Loggin';
+import Loggin from './pages/Loggin';
 import ProductContainer from './pages/Products';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppContext } from './components/context/AppContext';

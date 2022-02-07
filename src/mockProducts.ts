@@ -4,38 +4,38 @@ import { ProductItem } from './interface/ecomerce.interface';
 export const mockProducts: ProductItem[] = [
    {
       id: nanoid(),
-      amount: 5,
+      inStock: 50,
       imageUrl: 'test1',
-      description: 'Very najs stick',
+      title: 'Very najs stick',
       price: 1337,
    },
    {
       id: nanoid(),
-      amount: 5,
+      inStock: 13,
       imageUrl: 'test2',
-      description: 'A big tree',
+      title: 'A big tree',
       price: 170,
    },
    {
       id: nanoid(),
-      amount: 5,
+      inStock: 4,
       imageUrl: 'test3',
-      description: 'A green rubber duck',
+      title: 'A green rubber duck',
       price: 199,
    },
 
    {
       id: nanoid(),
-      amount: 5,
+      inStock: 34,
       imageUrl: 'test3',
-      description: 'Some yellow leafs',
+      title: 'Some yellow leafs',
       price: 129,
    },
    {
       id: nanoid(),
-      amount: 5,
+      inStock: 12,
       imageUrl: 'test3',
-      description: 'Magic Mushroom',
+      title: 'Magic Mushroom',
       price: 599,
    },
 ];
