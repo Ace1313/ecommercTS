@@ -3,11 +3,12 @@ import { AppReducer, AppAction } from './AppReducer';
 import { mockProducts } from '../../mockProducts';
 import { ProductItem } from '../../interface/ecomerce.interface';
 import { useEffect } from 'react';
+import { getLocalCart } from '../utilities/helpers';
 
 const initialState = {
    isLoggedIn: false,
    startProducts: mockProducts,
-   cart: [] as ProductItem[],
+   cart: getLocalCart(),
 };
 
 interface AppContextProps {

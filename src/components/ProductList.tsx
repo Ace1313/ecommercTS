@@ -1,4 +1,3 @@
-import { mockProducts } from '../mockProducts';
 import { ProductItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
 import { useContext } from 'react';
@@ -21,6 +20,13 @@ function ProductList() {
 
 const Wrapper = styled.div`
    display: grid;
+   grid-template-rows: 320px 320px 320px;
+   grid-template-columns: 300px 300px 300px;
+   justify-content: center;
+   align-content: center;
+   gap: 3rem;
+   margin-top: 3rem;
+   padding-top: 1rem;
 `;
 
 export default ProductList;
