@@ -3,7 +3,7 @@ import { CartItem, ProductItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
 import { AppContext } from './context/AppContext';
 
-function ProductItemCard({ id, title, inStock, price, imageUrl }: ProductItem) {
+function ProductItemCard({ id, title, price, imageUrl }: ProductItem) {
    const { dispatch, state } = useContext(AppContext);
 
    function isInCart() {
@@ -14,17 +14,21 @@ function ProductItemCard({ id, title, inStock, price, imageUrl }: ProductItem) {
       localStorage.setItem('Cart', JSON.stringify(state.cart));
    }, [state.cart]);
 
+   const { inStock } =
+      state &&
+      state.startProducts &&
+      state.startProducts.find((product: any) => product.id === id);
+
    function addToCartHandler() {
       let productId = id;
 
       let productArray = state.startProducts;
       let cartArray = state.cart;
-      const addProduct = productArray.find((item) => item.id === productId)!;
+      const addProduct = productArray.find((item: any) => item.id === productId)!;
 
       const cartItem: CartItem = { ...addProduct, amount: 1 };
 
       localStorage.setItem('Cart', JSON.stringify(cartArray));
-
       dispatch({ type: 'ADD_CART', payload: cartItem });
    }
 

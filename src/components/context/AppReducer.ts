@@ -22,7 +22,7 @@ export function AppReducer(state: AppState, action: AppAction) {
       case 'SET_INIT_PRODUCTS':
          return {
             ...state,
-            startProducts: action.payload.startProducts,
+            startProducts: action.payload,
          };
 
       case 'ADD_CART':

@@ -5,12 +5,17 @@ import styled from 'styled-components';
 import { getLocalCart } from './utilities/helpers';
 
 function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
-   const { dispatch } = useContext(AppContext);
+   const { dispatch, state } = useContext(AppContext);
    let cartLocalstate = getLocalCart();
+   let productsLocalstate = JSON.parse(localStorage.getItem('products')!);
+   let productState = state && state.startProducts;
+
+   console.log(productState);
+
    function incrementHandler() {
       const incId = id;
 
-      if (amount >= inStock) {
+      if (inStock === 0) {
          return;
       }
 
@@ -20,15 +25,29 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
                return {
                   ...item,
                   amount: item.amount++,
+                  inStock: item.inStock--,
                };
             }
             return item;
          });
 
-      console.log(cartLocalstate);
+      productsLocalstate &&
+         productsLocalstate.map((item: any) => {
+            if (item.id === incId) {
+               return {
+                  ...item,
+                  amount: item.amount++,
+                  inStock: item.inStock--,
+               };
+            }
+            return item;
+         });
 
       dispatch({ type: 'SET_CARTITEM_COUNT', payload: cartLocalstate });
       localStorage.setItem('Cart', JSON.stringify(cartLocalstate));
+
+      dispatch({ type: 'SET_INIT_PRODUCTS', payload: productsLocalstate });
+      localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
    function decreaseHandler() {
@@ -48,8 +67,21 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          cartLocalstate.map((item: CartItem) => {
             if (item.id === incId) {
                return {
-                  item,
+                  ...item,
                   amount: item.amount--,
+                  inStock: item.inStock++,
+               };
+            }
+            return item;
+         });
+
+      productsLocalstate &&
+         productsLocalstate.map((item: any) => {
+            if (item.id === incId) {
+               return {
+                  ...item,
+                  amount: item.amount++,
+                  inStock: item.inStock++,
                };
             }
             return item;
@@ -57,14 +89,17 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
 
       dispatch({ type: 'SET_CARTITEM_COUNT', payload: cartLocalstate });
       localStorage.setItem('Cart', JSON.stringify(cartLocalstate));
+
+      dispatch({ type: 'SET_INIT_PRODUCTS', payload: productsLocalstate });
+      localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
    return (
       <div>
          <p> {title} </p>
-         <p> {price} </p>
-         <p>{amount}</p>
-         <p> {inStock}</p>
+         <p> price: {price} </p>
+         <p> amount: {amount}</p>
+         <p> Instock: {inStock}</p>
 
          <button onClick={decreaseHandler}>-</button>
          <button onClick={incrementHandler}>+</button>

@@ -4,9 +4,16 @@ import { mockProducts } from '../../mockProducts';
 import { useEffect } from 'react';
 import { getLocalCart } from '../utilities/helpers';
 
+function loadProducts() {
+   if (localStorage.getItem('products')) {
+      return JSON.parse(localStorage.getItem('products')!);
+   }
+   return mockProducts;
+}
+
 const initialState = {
    isLoggedIn: false,
-   startProducts: mockProducts,
+   startProducts: loadProducts(),
    cart: getLocalCart(),
 };
 
@@ -29,6 +36,10 @@ function AppContextProvider({ children }: Props) {
          localStorage.setItem('isLoggedIn', 'true');
       }
    }, [state]);
+
+   useEffect(() => {
+      localStorage.setItem('products', JSON.stringify(state.startProducts));
+   }, [state.startProducts]);
 
    return (
       <AppContext.Provider value={{ state, dispatch }}>
