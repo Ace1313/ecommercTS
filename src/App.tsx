@@ -7,7 +7,6 @@ import Cart from './pages/Cart';
 
 function App() {
    const { state } = useContext(AppContext);
-   console.log(state.isLoggedIn);
 
    return (
       <BrowserRouter>

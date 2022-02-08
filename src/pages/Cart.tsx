@@ -1,15 +1,17 @@
-import React from 'react';
+import { useEffect, useContext } from 'react';
+import { AppContext } from '../components/context/AppContext';
+
+import CartItems from '../components/CartItems';
 
 function Cart() {
-   const cartItems = JSON.parse(localStorage.getItem('Cart')!);
+   const { state } = useContext(AppContext);
 
-   console.log(cartItems);
+   useEffect(() => {}, []);
 
    return (
       <div>
-         {cartItems.map((item: any) => (
-            <h1> {item.title} </h1>
-         ))}
+         {state.cart &&
+            state.cart.map((item: any) => <CartItems key={item.id} {...item} />)}
       </div>
    );
 }

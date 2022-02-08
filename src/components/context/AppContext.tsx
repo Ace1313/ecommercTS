@@ -1,7 +1,6 @@
 import { createContext, useReducer } from 'react';
 import { AppReducer, AppAction } from './AppReducer';
 import { mockProducts } from '../../mockProducts';
-import { ProductItem } from '../../interface/ecomerce.interface';
 import { useEffect } from 'react';
 import { getLocalCart } from '../utilities/helpers';
 

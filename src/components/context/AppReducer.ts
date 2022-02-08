@@ -9,7 +9,8 @@ interface AppState {
 export type AppAction =
    | { type: 'SET_LOGGED_IN' }
    | { type: 'ADD_CART'; payload: any }
-   | { type: 'SET_INIT_PRODUCTS'; payload: any };
+   | { type: 'SET_INIT_PRODUCTS'; payload: any }
+   | { type: 'SET_CARTITEM_COUNT'; payload: any };
 
 export function AppReducer(state: AppState, action: AppAction) {
    switch (action.type) {
@@ -29,6 +30,12 @@ export function AppReducer(state: AppState, action: AppAction) {
             ...state,
             cart: [...state.cart, action.payload],
          };
+      case 'SET_CARTITEM_COUNT':
+         return {
+            ...state,
+            cart: action.payload,
+         };
+
       default:
          return state;
    }
