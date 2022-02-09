@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import CartItems from '../components/CartItems';
 import { getLocalCart } from '../components/utilities/helpers';
+import Navbar from '../components/Navbar';
 
 function Cart() {
    const { state } = useContext(AppContext);
@@ -16,22 +17,33 @@ function Cart() {
 
    return (
       <Wrapper>
-         {state.cart &&
-            state.cart.map((item: any) => <CartItems key={item.id} {...item} />)}
-         <h1> Total sum {totalPrice} $ </h1>
+         <Navbar />
+
+         <h1 className="totalsum"> Total: {totalPrice} $ </h1>
+         <div className="card">
+            {state.cart &&
+               state.cart.map((item: any) => <CartItems key={item.id} {...item} />)}
+         </div>
       </Wrapper>
    );
 }
 
 const Wrapper = styled.div`
-   display: grid;
-   grid-template-rows: 420px 420px 420px;
-   grid-template-columns: 300px 300px 300px;
-   justify-content: center;
-   align-content: center;
-   gap: 3rem;
-   margin-top: 3rem;
-   padding-top: 1rem;
+   .card {
+      display: grid;
+      grid-template-rows: 420px 420px 420px;
+      grid-template-columns: 300px 300px 300px;
+      justify-content: center;
+      align-content: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 1rem;
+   }
+
+   h1 {
+      display: flex;
+      justify-content: center;
+   }
 `;
 
 export default Cart;

@@ -3,6 +3,9 @@ import rod from './assets/rod.jpg';
 import lure from './assets/lure.jpg';
 import boat from './assets/boat.jpg';
 import net from './assets/net.jpg';
+import bag from './assets/bag.jpg';
+import axe from './assets/axe.jpg';
+import knife from './assets/knife.jpg';
 
 export const mockProducts: ProductItem[] = [
    {
@@ -37,8 +40,22 @@ export const mockProducts: ProductItem[] = [
    {
       id: '5',
       inStock: 12,
-      imageUrl: 'test3',
-      title: 'Magic Mushroom',
-      price: 599,
+      imageUrl: bag,
+      title: 'Bag',
+      price: 299,
+   },
+   {
+      id: '6',
+      inStock: 5,
+      imageUrl: axe,
+      title: 'Axe',
+      price: 699,
+   },
+   {
+      id: '7',
+      inStock: 7,
+      imageUrl: knife,
+      title: 'Knife',
+      price: 690,
    },
 ];

@@ -11,24 +11,6 @@ function ProductList() {
    const productState = state.startProducts && state?.startProducts;
    const [searchProduct, setSearchProduct] = useState('');
 
-   // function searchProductItems() {
-   //    return productState
-   //       .filter((item: any) => {
-   //          if (searchProduct === '') {
-   //             return item;
-   //          } else if (
-   //             item.title
-   //                .toLowerCase()
-   //                .includes(searchProduct.toLocaleLowerCase())
-   //          ) {
-   //             return item;
-   //          }
-   //       })
-   //       .map((item: ProductItem) => <ProductItemCard key={item.id} {...item} />);
-   // }
-
-   console.log(searchProduct);
-
    return (
       <Wrapper>
          <div className="searchbar">
@@ -62,7 +44,7 @@ function ProductList() {
 const Wrapper = styled.div`
    .test {
       display: grid;
-      grid-template-rows: 340px 340px 340px;
+      grid-template-rows: 380px 360px 360px;
       grid-template-columns: 300px 300px 300px;
       justify-content: center;
       align-content: center;
