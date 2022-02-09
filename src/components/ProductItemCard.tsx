@@ -26,16 +26,31 @@ function ProductItemCard({ id, title, price, imageUrl }: ProductItem) {
       let cartArray = state.cart;
       const addProduct = productArray.find((item: any) => item.id === productId)!;
 
-      const cartItem: CartItem = { ...addProduct, amount: 1 };
+      const cartItem: CartItem = { ...addProduct, amount: 1, inStock: inStock - 1 };
 
       localStorage.setItem('Cart', JSON.stringify(cartArray));
+
+      productArray.map((item: any) => {
+         if (item.id === id) {
+            return {
+               ...item,
+               inStock: item.inStock--,
+            };
+         }
+         return item;
+      });
+
+      localStorage.setItem('products', JSON.stringify(productArray));
+
       dispatch({ type: 'ADD_CART', payload: cartItem });
+
+      dispatch({ type: 'SET_INIT_PRODUCTS', payload: productArray });
    }
 
    return (
       <Wrapper>
-         <h3> {title} </h3>
          <img src={imageUrl} alt="" />
+         <h3> {title} </h3>
          <p> Instock: {inStock} </p>
          <p> Price: {price} $ </p>
          <button onClick={addToCartHandler} disabled={isInCart()}>
@@ -54,8 +69,9 @@ const Wrapper = styled.div`
    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
       rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-   background-color: #848a8494;
-   padding: 1rem;
+   background-color: #ced6e0;
+
+   border-radius: 5px;
 
    button {
       width: 100px;
@@ -65,7 +81,7 @@ const Wrapper = styled.div`
    }
 
    img {
-      width: 180px;
+      width: 300px;
       height: 180px;
    }
 `;

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../components/context/AppContext';
 import { CartItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
@@ -50,7 +50,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
       localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
-   function decreaseHandler() {
+   function decrementHandler() {
       const incId = id;
 
       if (amount === 1) {
@@ -59,6 +59,20 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          localStorage.setItem('Cart', JSON.stringify(newArray));
          console.log(newArray);
          dispatch({ type: 'SET_CARTITEM_COUNT', payload: newArray });
+
+         productsLocalstate.map((item: any) => {
+            if (item.id === id) {
+               return {
+                  ...item,
+                  inStock: item.inStock++,
+               };
+            }
+            return item;
+         });
+
+         localStorage.setItem('products', JSON.stringify(productsLocalstate));
+
+         dispatch({ type: 'SET_INIT_PRODUCTS', payload: productsLocalstate });
 
          return;
       }
@@ -95,20 +109,41 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    }
 
    return (
-      <div>
-         <p> {title} </p>
-         <p> price: {price} </p>
+      <Wrapper>
+         <img src={imageUrl} alt="product" />
+         <h3> {title} </h3>
+         <p> price: {price} $ </p>
          <p> amount: {amount}</p>
          <p> Instock: {inStock}</p>
-
-         <button onClick={decreaseHandler}>-</button>
-         <button onClick={incrementHandler}>+</button>
-      </div>
+         <div>
+            <button onClick={decrementHandler}>-</button>
+            <button onClick={incrementHandler}>+</button>
+         </div>
+      </Wrapper>
    );
 }
 
 const Wrapper = styled.div`
-   padding: 2rem;
+   display: grid;
+   grid-template-columns: auto;
+   grid-template-rows: 1fr 1fr 1fr 1fr;
+   justify-content: center;
+   justify-items: center;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+   background-color: #f3a683f4;
+   padding: 1rem;
+
+   button {
+      width: 30px;
+      height: 30px;
+   }
+
+   img {
+      width: 180px;
+      height: 180px;
+   }
 `;
 
 export default CartItems;
