@@ -44,7 +44,7 @@ function ProductList() {
 const Wrapper = styled.div`
    .test {
       display: grid;
-      grid-template-rows: 380px 360px 360px;
+      grid-template-rows: 480px 480px 480px;
       grid-template-columns: 300px 300px 300px;
       justify-content: center;
       align-content: center;

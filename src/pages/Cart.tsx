@@ -18,8 +18,12 @@ function Cart() {
    return (
       <Wrapper>
          <Navbar />
-
-         <h1 className="totalsum"> Total: {totalPrice} $ </h1>
+         {cartState.length === 0 ? <h1>Nothing In Cart</h1> : ''}
+         {cartState.length === 0 ? (
+            ''
+         ) : (
+            <h1 className="totalsum"> Total: {totalPrice} $ </h1>
+         )}
          <div className="card">
             {state.cart &&
                state.cart.map((item: any) => <CartItems key={item.id} {...item} />)}
@@ -31,7 +35,7 @@ function Cart() {
 const Wrapper = styled.div`
    .card {
       display: grid;
-      grid-template-rows: 420px 420px 420px;
+      grid-template-rows: 480px 480px 480px;
       grid-template-columns: 300px 300px 300px;
       justify-content: center;
       align-content: center;

@@ -8,9 +8,9 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    const { dispatch, state } = useContext(AppContext);
    let cartLocalstate = getLocalCart();
    let productsLocalstate = JSON.parse(localStorage.getItem('products')!);
-   let productState = state && state.startProducts;
+   // let productState = state && state.startProducts;
 
-   console.log(productState);
+   // console.log(productState);
 
    function incrementHandler() {
       const incId = id;
@@ -126,23 +126,27 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
 const Wrapper = styled.div`
    display: grid;
    grid-template-columns: auto;
-   grid-template-rows: 1fr 1fr 1fr 1fr;
+   grid-template-rows: 235px 1fr 1fr 1fr 1fr 1fr;
    justify-content: center;
    justify-items: center;
    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
       rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-   background-color: #f3a683f4;
-   padding: 1rem;
+   background: #00b893b0;
+   border: 2px solid black;
+   border-radius: 5px;
 
    button {
-      width: 30px;
-      height: 30px;
+      width: 80px;
+      height: 25px;
+      cursor: pointer;
    }
 
    img {
-      width: 180px;
-      height: 180px;
+      width: 296px;
+
+      height: 100%;
+      object-fit: cover;
    }
 `;
 

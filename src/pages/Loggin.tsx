@@ -6,57 +6,99 @@ import { useNavigate } from 'react-router-dom';
 
 function Loggin() {
    const { dispatch } = useContext(AppContext);
-   const [email, setEmail] = useState<string>('');
-   const [emailTouched, setEmailTouched] = useState<boolean>(false);
-
-   const [nameIsValid, nameMessage] = isValidName(email);
-
-   const [password, setPassword] = useState('');
-
-   const nameInputCss = !emailTouched ? '' : nameIsValid ? 'valid' : 'invalid';
-   const nameMessageCss = emailTouched
-      ? ''
-      : 'invisible' + (nameIsValid ? '' : ' error');
-
    let navigate = useNavigate();
 
-   function submitHandler() {
-      if (email === mockInfo[0].email) {
+   const [enteredPassword, setEnteredPassword] = useState('');
+   const [enteredPasswordTouched, setEnteredPasswordTouched] = useState(false);
+
+   const [enteredEmail, setEnteredEmail] = useState('');
+   const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+
+   const enteredPasswordIsValid = enteredPassword.trim() !== '';
+   const nameInputIsInvalid = !enteredPasswordIsValid && enteredPasswordTouched;
+
+   const enteredEmailIsValid = enteredEmail.includes('@');
+   const enteredEmailIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
+
+   const nameInputChangeHandler = (event: any) => {
+      setEnteredPassword(event.target.value);
+   };
+
+   const emailInputChangeHandler = (event: any) => {
+      setEnteredEmail(event.target.value);
+   };
+
+   const nameInputBlurHandler = () => {
+      setEnteredPasswordTouched(true);
+   };
+
+   const emailInputBlurHandler = () => {
+      setEnteredEmailTouched(true);
+   };
+
+   const formSubmissionHandler = (event: any) => {
+      event.preventDefault();
+
+      setEnteredPasswordTouched(true);
+
+      if (
+         enteredEmail === mockInfo[0].email &&
+         enteredPassword === mockInfo[0].password
+      ) {
          dispatch({ type: 'SET_LOGGED_IN' });
          navigate('/products');
-      } else {
-         setEmailTouched(true);
-      }
-   }
 
-   function isValidName(email: string): [boolean, string] {
-      if (email === mockInfo[0].email) {
-         return [true, '✔'];
+         setEnteredPassword('');
+         setEnteredPasswordTouched(false);
+
+         setEnteredEmail('');
+         setEnteredEmailTouched(false);
       } else {
-         return [false, ' ❌ Fyll ut rätt information'];
+         setEnteredEmailTouched(true);
+         setEnteredPasswordTouched(true);
       }
-   }
+   };
+
+   const nameInputClasses = nameInputIsInvalid
+      ? 'form-control invalid'
+      : 'form-control';
+
+   const emailInputClasses = enteredEmailIsInvalid
+      ? 'form-control invalid'
+      : 'form-control';
 
    return (
       <LogginWrapper>
-         <form className="form">
-            <input
-               className={nameInputCss}
-               onChange={(e) => setEmail(e.target.value)}
-               value={email}
-               type="text"
-               placeholder="Email"
-               onBlur={() => setEmailTouched(true)}
-            />
-            <span className={nameMessageCss}> {nameMessage} </span>
-            <input
-               onChange={(e) => setPassword(e.target.value)}
-               value={password}
-               type="password"
-               placeholder="Password"
-            />
+         <form>
+            <div className={emailInputClasses}>
+               <label htmlFor="email">Your E-Mail</label>
+               <input
+                  type="email"
+                  id="email"
+                  onChange={emailInputChangeHandler}
+                  onBlur={emailInputBlurHandler}
+                  value={enteredEmail}
+               />
+               {enteredEmailIsInvalid && (
+                  <p className="error-text">Please enter a valid email.</p>
+               )}
+            </div>
+            <div className="form-actions"></div>
+            <div className={nameInputClasses}>
+               <label htmlFor="name">Password</label>
+               <input
+                  type="password"
+                  id="name"
+                  onChange={nameInputChangeHandler}
+                  onBlur={nameInputBlurHandler}
+                  value={enteredPassword}
+               />
+               {nameInputIsInvalid && (
+                  <p className="error-text">Please enter password.</p>
+               )}
+            </div>
+            <button onClick={formSubmissionHandler}>Submit</button>
          </form>
-         <button onClick={submitHandler}>Login</button>
       </LogginWrapper>
    );
 }
@@ -80,42 +122,83 @@ const LogginWrapper = styled.div`
       background-color: purple;
    }
 
-   .formvalid {
-      border-color: green;
+   .form-control {
+      margin-bottom: 1rem;
    }
 
-   .forminvalid {
-      border-color: red;
-   }
-   .form {
-      transition: all 1s;
-      font-size: 1.2em;
-   }
-   .form label {
+   .form-control input,
+   .form-control label {
       display: block;
-      margin-top: 1em;
    }
-   .form input {
-      border: 4px solid gray;
+
+   .form-control label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+   }
+
+   .form-control input,
+   .form-control select {
+      font: inherit;
+      padding: 0.5rem;
       border-radius: 4px;
-      padding: 0.2em 0.4em;
-      font-size: 0.9em;
+      border: 1px solid #ccc;
+      width: 20rem;
+      max-width: 100%;
    }
-   .form .valid {
-      border-color: green;
+
+   .form-control input:focus {
+      outline: none;
+      border-color: #240370;
+      background-color: #e0d4fd;
    }
-   .form .invalid {
-      border-color: red;
+
+   .control-group {
+      display: flex;
+      column-gap: 1rem;
+      flex-wrap: wrap;
    }
-   .invisible {
-      visibility: hidden;
+
+   .control-group .form-control {
+      min-width: 15rem;
+      flex: 1;
    }
-   .form {
-      background-color: #eceade;
-      padding: 1em;
+
+   button {
+      font: inherit;
+      background-color: #240370;
+      color: white;
+      border: 1px solid #240370;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
    }
-   .form .error {
-      color: #e34343;
+
+   button:hover,
+   button:active {
+      background-color: #33059e;
+      border-color: #33059e;
+   }
+
+   .form-actions {
+      text-align: right;
+   }
+
+   .form-actions button {
+      margin-left: 1rem;
+   }
+
+   .invalid input {
+      border: 1px solid #b40e0e;
+      background-color: #fddddd;
+   }
+
+   .invalid input:focus {
+      border-color: #ff8800;
+      background-color: #fbe8d2;
+   }
+
+   .error-text {
+      color: #b40e0e;
    }
 `;
 export default Loggin;
