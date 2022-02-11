@@ -8,97 +8,56 @@ function Loggin() {
    const { dispatch } = useContext(AppContext);
    let navigate = useNavigate();
 
-   const [enteredPassword, setEnteredPassword] = useState('');
-   const [enteredPasswordTouched, setEnteredPasswordTouched] = useState(false);
-
    const [enteredEmail, setEnteredEmail] = useState('');
-   const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
+   const [enteredPassword, setEnteredPassword] = useState('');
+   const [emailTouched, setEmailTouched] = useState(false);
+   const [isValid, setIsValid] = useState(false);
 
-   const enteredPasswordIsValid = enteredPassword.trim() !== '';
-   const nameInputIsInvalid = !enteredPasswordIsValid && enteredPasswordTouched;
-
-   const enteredEmailIsValid = enteredEmail.includes('@');
-   const enteredEmailIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
-
-   const nameInputChangeHandler = (event: any) => {
-      setEnteredPassword(event.target.value);
-   };
-
-   const emailInputChangeHandler = (event: any) => {
-      setEnteredEmail(event.target.value);
-   };
-
-   const nameInputBlurHandler = () => {
-      setEnteredPasswordTouched(true);
-   };
-
-   const emailInputBlurHandler = () => {
-      setEnteredEmailTouched(true);
-   };
+   const valid =
+      mockInfo[0].email === enteredEmail && mockInfo[0].password === enteredPassword;
 
    const formSubmissionHandler = (event: any) => {
       event.preventDefault();
 
-      setEnteredPasswordTouched(true);
-
-      if (
-         enteredEmail === mockInfo[0].email &&
-         enteredPassword === mockInfo[0].password
-      ) {
-         dispatch({ type: 'SET_LOGGED_IN' });
+      if (valid) {
          navigate('/products');
-
-         setEnteredPassword('');
-         setEnteredPasswordTouched(false);
-
-         setEnteredEmail('');
-         setEnteredEmailTouched(false);
-      } else {
-         setEnteredEmailTouched(true);
-         setEnteredPasswordTouched(true);
       }
+
+      setIsValid(true);
    };
 
-   const nameInputClasses = nameInputIsInvalid
-      ? 'form-control invalid'
-      : 'form-control';
-
-   const emailInputClasses = enteredEmailIsInvalid
-      ? 'form-control invalid'
-      : 'form-control';
+   console.log(emailTouched);
 
    return (
       <LogginWrapper>
-         <form>
-            <div className={emailInputClasses}>
+         <form className="form-control" onSubmit={formSubmissionHandler}>
+            <div>
                <label htmlFor="email">Your E-Mail</label>
                <input
+                  required={true}
+                  onChange={(e) => setEnteredEmail(e.target.value)}
                   type="email"
                   id="email"
-                  onChange={emailInputChangeHandler}
-                  onBlur={emailInputBlurHandler}
                   value={enteredEmail}
+                  onBlur={() => setEmailTouched(true)}
                />
-               {enteredEmailIsInvalid && (
-                  <p className="error-text">Please enter a valid email.</p>
-               )}
             </div>
             <div className="form-actions"></div>
-            <div className={nameInputClasses}>
+            <div>
                <label htmlFor="name">Password</label>
                <input
+                  required={true}
+                  onChange={(e) => setEnteredPassword(e.target.value)}
                   type="password"
-                  id="name"
-                  onChange={nameInputChangeHandler}
-                  onBlur={nameInputBlurHandler}
+                  id="password"
                   value={enteredPassword}
                />
-               {nameInputIsInvalid && (
-                  <p className="error-text">Please enter password.</p>
-               )}
             </div>
-            <button onClick={formSubmissionHandler}>Submit</button>
+            <button>Submit</button>
          </form>
+         {isValid && (
+            <h3 className="error">Please enter correct Email or password</h3>
+         )}
       </LogginWrapper>
    );
 }
@@ -110,16 +69,8 @@ const LogginWrapper = styled.div`
    align-items: center;
    flex-direction: column;
 
-   .login_form {
-      height: 250px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
-         rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
-      display: grid;
-      grid-template-rows: 50px 50px 50px;
-      gap: 3rem;
-      width: 250px;
-      padding: 1rem;
-      background-color: purple;
+   .error {
+      color: #b40e0e;
    }
 
    .form-control {
@@ -136,31 +87,35 @@ const LogginWrapper = styled.div`
       margin-bottom: 0.5rem;
    }
 
-   .form-control input,
-   .form-control select {
+   .form-control {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      height: 350px;
+      justify-content: center;
+      display: grid;
+      border-radius: 8px;
+   }
+
+   label {
+      text-align: center;
+      font-size: 18px;
+   }
+
+   input {
       font: inherit;
       padding: 0.5rem;
       border-radius: 4px;
       border: 1px solid #ccc;
       width: 20rem;
-      max-width: 100%;
+      max-width: 80%;
+      margin: auto;
+      text-align: center;
    }
 
-   .form-control input:focus {
+   input:focus {
       outline: none;
       border-color: #240370;
       background-color: #e0d4fd;
-   }
-
-   .control-group {
-      display: flex;
-      column-gap: 1rem;
-      flex-wrap: wrap;
-   }
-
-   .control-group .form-control {
-      min-width: 15rem;
-      flex: 1;
    }
 
    button {
@@ -179,26 +134,8 @@ const LogginWrapper = styled.div`
       border-color: #33059e;
    }
 
-   .form-actions {
-      text-align: right;
-   }
-
    .form-actions button {
       margin-left: 1rem;
-   }
-
-   .invalid input {
-      border: 1px solid #b40e0e;
-      background-color: #fddddd;
-   }
-
-   .invalid input:focus {
-      border-color: #ff8800;
-      background-color: #fbe8d2;
-   }
-
-   .error-text {
-      color: #b40e0e;
    }
 `;
 export default Loggin;

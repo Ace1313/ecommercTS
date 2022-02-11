@@ -13,4 +13,5 @@ export interface CartItem extends ProductItem {
 export interface UserInformation {
    email: string;
    password: string;
+   adress: string;
 }
