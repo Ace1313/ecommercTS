@@ -15,6 +15,7 @@ function ProductList() {
       <Wrapper>
          <div className="searchbar">
             <input
+               data-testid="search"
                onChange={(e) => setSearchProduct(e.target.value)}
                value={searchProduct}
                placeholder="Search"

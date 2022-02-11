@@ -48,7 +48,7 @@ function ProductItemCard({ id, title, price, imageUrl }: ProductItem) {
    }
 
    return (
-      <Wrapper>
+      <Wrapper data-testid="allProducts">
          <img src={imageUrl} alt="" />
          <h3> {title} </h3>
          <p> Instock: {inStock} </p>
