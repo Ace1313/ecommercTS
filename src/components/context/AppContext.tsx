@@ -11,8 +11,6 @@ function loadProducts() {
    return mockProducts;
 }
 
-console.log(getLocalCart());
-
 const initialState = {
    isLoggedIn: false,
    startProducts: loadProducts(),

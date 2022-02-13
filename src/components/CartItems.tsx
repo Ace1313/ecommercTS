@@ -3,6 +3,7 @@ import { AppContext } from '../components/context/AppContext';
 import { CartItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
 import { getLocalCart } from './utilities/helpers';
+import { mockProducts } from '../mockProducts';
 
 function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    const { dispatch, state } = useContext(AppContext);
@@ -57,7 +58,6 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          const newArray = cartLocalstate.filter((item: any) => item.id !== incId);
 
          localStorage.setItem('Cart', JSON.stringify(newArray));
-         console.log(newArray);
          dispatch({ type: 'SET_CARTITEM_COUNT', payload: newArray });
 
          productsLocalstate.map((item: any) => {
@@ -108,6 +108,23 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
       localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
+   // function removeAllProductsHandler() {
+   //    const incId = id;
+
+   //    productsLocalstate &&
+   //       productsLocalstate.map((item: any) => {
+   //          if (item.id === incId) {
+   //             return {
+   //                ...item,
+
+   //             };
+   //          }
+   //          return item;
+   //       });
+
+   //    dispatch({ type: 'REMOVE_CARTITEMS', payload: productsLocalstate });
+   // }
+
    return (
       <Wrapper>
          <img src={imageUrl} alt="product" />
@@ -118,6 +135,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          <div>
             <button onClick={decrementHandler}>-</button>
             <button onClick={incrementHandler}>+</button>
+            {/* <button onClick={removeAllProductsHandler}>x</button> */}
          </div>
       </Wrapper>
    );

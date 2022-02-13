@@ -2,9 +2,10 @@ import { render, screen } from '@testing-library/react';
 import ProductList from '../ProductList';
 import Navbar from '../Navbar';
 import { BrowserRouter } from 'react-router-dom';
-
+import ProductItemCard from '../ProductItemCard';
 import AppContextProvider from '../context/AppContext';
 import userEvent from '@testing-library/user-event';
+import { mockProducts } from '../../mockProducts';
 
 describe('Should render products', () => {
    it('Should render without crashing', () => {
@@ -74,5 +75,19 @@ describe('Should render products', () => {
       const test = screen.getAllByTestId('allProducts');
 
       expect(test.length).toBe(5);
+   });
+
+   it('Should display amount in cart', () => {
+      render(
+         <AppContextProvider>
+            <BrowserRouter>
+               <Navbar />
+            </BrowserRouter>
+         </AppContextProvider>
+      );
+
+      const amountEle = screen.getByTestId('cartAmount');
+
+      expect(amountEle).toHaveTextContent('0');
    });
 });

@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { BsCart2 } from 'react-icons/bs';
+import { useContext } from 'react';
+import { AppContext } from './context/AppContext';
 
 function Navbar() {
+   const { state } = useContext(AppContext);
+
    return (
       <Wrapper>
          <ul>
-            <Link className="links" to="/cart">
-               <BsCart2 />
+            <Link data-testid="cartAmount" className="links" to="/cart">
+               <BsCart2 /> {state.cart.length}
             </Link>
-
             <Link className="links" to="/products">
                Products
             </Link>

@@ -26,8 +26,6 @@ function Loggin() {
       setIsValid(true);
    };
 
-   console.log(emailTouched);
-
    return (
       <LogginWrapper>
          <form className="form-control" onSubmit={formSubmissionHandler}>
