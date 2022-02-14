@@ -1,13 +1,9 @@
 import Loggin from './pages/Loggin';
 import ProductContainer from './pages/Products';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AppContext } from './components/context/AppContext';
-import { useContext } from 'react';
 import Cart from './pages/Cart';
 
 function App() {
-   const { state } = useContext(AppContext);
-
    return (
       <BrowserRouter>
          <Routes>

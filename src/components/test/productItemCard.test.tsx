@@ -48,7 +48,7 @@ describe('ProductItemCard', () => {
       expect(testEle).toBeInTheDocument();
    });
 
-   it('item in stock should change after add to button has been clicked', () => {
+   it('should change value of items in stock button has been clicked', () => {
       render(
          <AppContextProvider>
             <ProductItemCard {...mockProducts[0]} />

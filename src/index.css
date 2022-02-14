@@ -5,7 +5,13 @@
 }
 
 body {
-   background-image: url('./assets/background.jpg');
+   background: rgb(217, 226, 226);
+   background: linear-gradient(
+      121deg,
+      rgba(217, 226, 226, 1) 0%,
+      rgba(201, 225, 226, 1) 56%,
+      rgba(150, 207, 195, 1) 82%
+   );
 }
 
 .ok {

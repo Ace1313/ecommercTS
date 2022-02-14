@@ -9,13 +9,18 @@ function Navbar() {
 
    return (
       <Wrapper>
-         <ul>
-            <Link data-testid="cartAmount" className="links" to="/cart">
-               <BsCart2 /> {state.cart.length}
-            </Link>
-            <Link className="links" to="/products">
-               Products
-            </Link>
+         <ul className="nav_links">
+            <li>
+               <Link className="links" to="/products">
+                  Products
+               </Link>
+            </li>
+            <li>
+               <Link data-testid="cartAmount" className="links" to="/cart">
+                  <BsCart2 />
+                  {state.cart.length >= 1 && state.cart.length}
+               </Link>
+            </li>
          </ul>
       </Wrapper>
    );
@@ -24,8 +29,16 @@ function Navbar() {
 const Wrapper = styled.div`
    padding: 1rem 2rem 1rem 2rem;
    margin-top: 1rem;
-   display: flex;
-   justify-content: space-around;
+
+   .nav_links {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-around;
+   }
+
+   li {
+      list-style: none;
+   }
 
    .links {
       text-decoration: none;
@@ -36,8 +49,8 @@ const Wrapper = styled.div`
 
    .links:hover {
       color: #11dd7e;
-      border-bottom: 2px solid purple;
-      transition: ease-in 1s;
+      border-bottom: 2px solid black;
+      transition: ease-in 0.5s;
    }
 `;
 

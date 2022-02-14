@@ -38,7 +38,7 @@ describe('Should render login page', () => {
             </BrowserRouter>
          </AppContextProvider>
       );
-      const emailInput = screen.getByLabelText('Your E-Mail');
+      const emailInput = screen.getByLabelText('Email');
 
       userEvent.type(emailInput, 'rob@hotmail.com');
 

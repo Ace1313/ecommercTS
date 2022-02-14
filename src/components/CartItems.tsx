@@ -3,15 +3,11 @@ import { AppContext } from '../components/context/AppContext';
 import { CartItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
 import { getLocalCart } from './utilities/helpers';
-import { mockProducts } from '../mockProducts';
 
 function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
-   const { dispatch, state } = useContext(AppContext);
+   const { dispatch } = useContext(AppContext);
    let cartLocalstate = getLocalCart();
    let productsLocalstate = JSON.parse(localStorage.getItem('products')!);
-   // let productState = state && state.startProducts;
-
-   // console.log(productState);
 
    function incrementHandler() {
       const incId = id;
@@ -108,23 +104,6 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
       localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
-   // function removeAllProductsHandler() {
-   //    const incId = id;
-
-   //    productsLocalstate &&
-   //       productsLocalstate.map((item: any) => {
-   //          if (item.id === incId) {
-   //             return {
-   //                ...item,
-
-   //             };
-   //          }
-   //          return item;
-   //       });
-
-   //    dispatch({ type: 'REMOVE_CARTITEMS', payload: productsLocalstate });
-   // }
-
    return (
       <Wrapper>
          <img src={imageUrl} alt="product" />
@@ -132,10 +111,9 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          <p> price: {price} $ </p>
          <p> amount: {amount}</p>
          <p> Instock: {inStock}</p>
-         <div>
+         <div className="btns">
             <button onClick={decrementHandler}>-</button>
             <button onClick={incrementHandler}>+</button>
-            {/* <button onClick={removeAllProductsHandler}>x</button> */}
          </div>
       </Wrapper>
    );
@@ -150,19 +128,33 @@ const Wrapper = styled.div`
    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
       rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
       rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-   background: #00b893b0;
    border: 2px solid black;
    border-radius: 5px;
+   background: #00b8933e;
+
+   .btns {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+   }
 
    button {
-      width: 80px;
-      height: 25px;
+      width: 85px;
+      height: 32px;
       cursor: pointer;
+      background: #95ebce;
+      border: 1px solid whitesmoke;
+      border-radius: 5px;
+   }
+
+   button:hover {
+      background: whitesmoke;
+      transition: ease-in-out 0.5s;
    }
 
    img {
       width: 296px;
-
       height: 100%;
       object-fit: cover;
    }

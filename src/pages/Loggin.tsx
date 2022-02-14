@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../components/context/AppContext';
+
 import { mockInfo } from '../userInformation';
 import { useNavigate } from 'react-router-dom';
 
 function Loggin() {
-   const { dispatch } = useContext(AppContext);
    let navigate = useNavigate();
 
    const [enteredEmail, setEnteredEmail] = useState('');
@@ -30,7 +29,7 @@ function Loggin() {
       <LogginWrapper>
          <form className="form-control" onSubmit={formSubmissionHandler}>
             <div>
-               <label htmlFor="email">Your E-Mail</label>
+               <label htmlFor="email">Email</label>
                <input
                   required={true}
                   onChange={(e) => setEnteredEmail(e.target.value)}
@@ -54,7 +53,7 @@ function Loggin() {
             <button>Submit</button>
          </form>
          {isValid && (
-            <h3 className="error">Please enter correct Email or password</h3>
+            <h2 className="error">Please enter correct Email or Password</h2>
          )}
       </LogginWrapper>
    );
@@ -92,6 +91,7 @@ const LogginWrapper = styled.div`
       justify-content: center;
       display: grid;
       border-radius: 8px;
+      background: #e0d4fd;
    }
 
    label {
@@ -100,20 +100,21 @@ const LogginWrapper = styled.div`
    }
 
    input {
-      font: inherit;
       padding: 0.5rem;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 1px solid #ccc;
       width: 20rem;
       max-width: 80%;
       margin: auto;
       text-align: center;
+      outline: none;
+      background: whitesmoke;
    }
 
    input:focus {
       outline: none;
       border-color: #240370;
-      background-color: #e0d4fd;
+      background-color: #e79fe9;
    }
 
    button {
