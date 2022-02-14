@@ -29,7 +29,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          });
 
       productsLocalstate &&
-         productsLocalstate.map((item: any) => {
+         productsLocalstate.map((item: CartItem) => {
             if (item.id === incId) {
                return {
                   ...item,
@@ -47,29 +47,36 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
       localStorage.setItem('products', JSON.stringify(productsLocalstate));
    }
 
+   function removeFromCart() {
+      const incId = id;
+
+      const newArray = cartLocalstate.filter((item: CartItem) => item.id !== incId);
+
+      localStorage.setItem('Cart', JSON.stringify(newArray));
+      dispatch({ type: 'SET_CARTITEM_COUNT', payload: newArray });
+
+      const updatedProducts = productsLocalstate.map((item: CartItem) => {
+         if (item.id === id) {
+            return {
+               ...item,
+               inStock: item.inStock + amount,
+            };
+         }
+         return item;
+      });
+
+      localStorage.setItem('products', JSON.stringify(updatedProducts));
+
+      dispatch({ type: 'SET_INIT_PRODUCTS', payload: updatedProducts });
+
+      return;
+   }
+
    function decrementHandler() {
       const incId = id;
 
       if (amount === 1) {
-         const newArray = cartLocalstate.filter((item: any) => item.id !== incId);
-
-         localStorage.setItem('Cart', JSON.stringify(newArray));
-         dispatch({ type: 'SET_CARTITEM_COUNT', payload: newArray });
-
-         productsLocalstate.map((item: any) => {
-            if (item.id === id) {
-               return {
-                  ...item,
-                  inStock: item.inStock++,
-               };
-            }
-            return item;
-         });
-
-         localStorage.setItem('products', JSON.stringify(productsLocalstate));
-
-         dispatch({ type: 'SET_INIT_PRODUCTS', payload: productsLocalstate });
-
+         removeFromCart();
          return;
       }
 
@@ -86,7 +93,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
          });
 
       productsLocalstate &&
-         productsLocalstate.map((item: any) => {
+         productsLocalstate.map((item: CartItem) => {
             if (item.id === incId) {
                return {
                   ...item,
@@ -107,13 +114,14 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    return (
       <Wrapper>
          <img src={imageUrl} alt="product" />
-         <h3> {title} </h3>
-         <p> price: {price} $ </p>
-         <p> amount: {amount}</p>
+         <h2> {title} </h2>
+         <p> Price: {price} $ </p>
          <p> Instock: {inStock}</p>
          <div className="btns">
             <button onClick={decrementHandler}>-</button>
+            <h2>{amount}</h2>
             <button onClick={incrementHandler}>+</button>
+            <button onClick={() => removeFromCart()}>X</button>
          </div>
       </Wrapper>
    );

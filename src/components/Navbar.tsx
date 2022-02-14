@@ -17,7 +17,7 @@ function Navbar() {
             </li>
             <li>
                <Link data-testid="cartAmount" className="links" to="/cart">
-                  <BsCart2 />
+                  <BsCart2 className="cart_icon" />
                   {state.cart.length >= 1 && state.cart.length}
                </Link>
             </li>
@@ -36,8 +36,16 @@ const Wrapper = styled.div`
       justify-content: space-around;
    }
 
+   .cart_icon {
+      font-size: 25px;
+   }
+
    li {
       list-style: none;
+      background: #00b89352;
+      border-radius: 9px;
+      border: 1px solid white;
+      padding: 0.5rem;
    }
 
    .links {
@@ -48,9 +56,8 @@ const Wrapper = styled.div`
    }
 
    .links:hover {
-      color: #11dd7e;
-      border-bottom: 2px solid black;
-      transition: ease-in 0.5s;
+      color: #e0e6e3;
+      transition: ease-in-out 0.5s;
    }
 `;
 

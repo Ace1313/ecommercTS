@@ -4,6 +4,7 @@ import Cart from '../../pages/Cart';
 import AppContextProvider from '../context/AppContext';
 import { BrowserRouter } from 'react-router-dom';
 import ProductItemCard from '../ProductItemCard';
+import CartItems from '../CartItems';
 
 const mockCart: any = [
    {
@@ -108,4 +109,14 @@ describe('Should render cart', () => {
 
       expect(totalSum).toEqual(+'1426');
    });
+
+   // it('Should display buttons without crashing', () => {
+   //       render(
+   //          <AppContextProvider>
+   //             <BrowserRouter>
+   //                <CartItems />
+   //             </BrowserRouter>
+   //          </AppContextProvider>
+   //       );
+   // })
 });
