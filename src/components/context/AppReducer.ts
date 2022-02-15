@@ -3,7 +3,7 @@ import { ProductItem } from '../../interface/ecomerce.interface';
 interface AppState {
    isLoggedIn: boolean;
    cart: ProductItem[];
-   startProducts: any;
+   startProducts: ProductItem[];
 }
 
 export type AppAction =

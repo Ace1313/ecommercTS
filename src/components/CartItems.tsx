@@ -12,15 +12,13 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    let productsLocalstate = JSON.parse(localStorage.getItem('products')!);
 
    function incrementHandler() {
-      const incId = id;
-
       if (inStock === 0) {
          return;
       }
 
       cartLocalstate &&
          cartLocalstate.map((item: CartItem) => {
-            if (item.id === incId) {
+            if (item.id === id) {
                return {
                   ...item,
                   amount: item.amount++,
@@ -32,7 +30,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
 
       productsLocalstate &&
          productsLocalstate.map((item: CartItem) => {
-            if (item.id === incId) {
+            if (item.id === id) {
                return {
                   ...item,
                   amount: item.amount++,
@@ -50,9 +48,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    }
 
    function removeFromCart() {
-      const incId = id;
-
-      const newArray = cartLocalstate.filter((item: CartItem) => item.id !== incId);
+      const newArray = cartLocalstate.filter((item: CartItem) => item.id !== id);
 
       localStorage.setItem('Cart', JSON.stringify(newArray));
       dispatch({ type: 'SET_CARTITEM_COUNT', payload: newArray });
@@ -75,8 +71,6 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
    }
 
    function decrementHandler() {
-      const incId = id;
-
       if (amount === 1) {
          removeFromCart();
          return;
@@ -84,7 +78,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
 
       cartLocalstate &&
          cartLocalstate.map((item: CartItem) => {
-            if (item.id === incId) {
+            if (item.id === id) {
                return {
                   ...item,
                   amount: item.amount--,
@@ -96,7 +90,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
 
       productsLocalstate &&
          productsLocalstate.map((item: CartItem) => {
-            if (item.id === incId) {
+            if (item.id === id) {
                return {
                   ...item,
                   amount: item.amount++,

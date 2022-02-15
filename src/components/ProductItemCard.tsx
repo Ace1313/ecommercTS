@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { CartItem, ProductItem } from '../interface/ecomerce.interface';
 import styled from 'styled-components';
 import { AppContext } from './context/AppContext';
@@ -7,7 +7,7 @@ function ProductItemCard({ id, title, price, imageUrl }: ProductItem) {
    const { dispatch, state } = useContext(AppContext);
 
    function isInCart() {
-      return state.cart.find((item: any) => item.id === id);
+      return state.cart.find((item: CartItem) => item.id === id);
    }
 
    useEffect(() => {
@@ -17,20 +17,18 @@ function ProductItemCard({ id, title, price, imageUrl }: ProductItem) {
    const { inStock } =
       state &&
       state.startProducts &&
-      state.startProducts.find((product: any) => product.id === id);
+      state.startProducts.find((product: CartItem) => product.id === id);
 
    function addToCartHandler() {
-      let productId = id;
-
       let productArray = state.startProducts;
       let cartArray = state.cart;
-      const addProduct = productArray.find((item: any) => item.id === productId)!;
+      const addProduct = productArray.find((item: CartItem) => item.id === id)!;
 
       const cartItem: CartItem = { ...addProduct, amount: 1, inStock: inStock - 1 };
 
       localStorage.setItem('Cart', JSON.stringify(cartArray));
 
-      productArray.map((item: any) => {
+      productArray.map((item: CartItem) => {
          if (item.id === id) {
             return {
                ...item,
