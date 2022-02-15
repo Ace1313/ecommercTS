@@ -64,6 +64,8 @@ const Wrapper = styled.div`
       color: #160427;
       width: 165px;
       height: 35px;
+      border-radius: 5px;
+      border: none;
    }
 `;
 

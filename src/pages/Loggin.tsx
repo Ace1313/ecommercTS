@@ -92,6 +92,7 @@ const LogginWrapper = styled.div`
       display: grid;
       border-radius: 8px;
       background: #e0d4fd;
+      padding: 1rem;
    }
 
    label {
