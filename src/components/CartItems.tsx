@@ -119,7 +119,7 @@ function CartItems({ id, imageUrl, title, inStock, price, amount }: CartItem) {
             </button>
             <h2>{amount}</h2>
             <button onClick={incrementHandler}>
-               <AiOutlinePlus />
+               <AiOutlinePlus />{' '}
             </button>
          </div>
          <button className="remove_all" onClick={() => removeFromCart()}>

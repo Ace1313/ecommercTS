@@ -40,8 +40,8 @@ describe('Should render login page', () => {
       );
       const emailInput = screen.getByLabelText('Email');
 
-      userEvent.type(emailInput, 'rob@hotmail.com');
+      userEvent.type(emailInput, 'user@hotmail.com');
 
-      expect(emailInput).toHaveValue('rob@hotmail.com');
+      expect(emailInput).toHaveValue('user@hotmail.com');
    });
 });
