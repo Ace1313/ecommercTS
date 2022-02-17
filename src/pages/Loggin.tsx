@@ -9,7 +9,6 @@ function Loggin() {
 
    const [enteredEmail, setEnteredEmail] = useState('');
    const [enteredPassword, setEnteredPassword] = useState('');
-   const [emailTouched, setEmailTouched] = useState(false);
    const [isValid, setIsValid] = useState(false);
 
    const valid =
@@ -36,7 +35,6 @@ function Loggin() {
                   type="email"
                   id="email"
                   value={enteredEmail}
-                  onBlur={() => setEmailTouched(true)}
                />
             </div>
             <div className="form-actions"></div>

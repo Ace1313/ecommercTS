@@ -27,12 +27,13 @@ function ProductList() {
             {productState
                .filter((item: any) => {
                   if (searchProduct === '') {
-                     return item;
+                     return true;
                   } else if (
                      item.title.toLowerCase().includes(searchProduct.toLowerCase())
                   ) {
-                     return item;
+                     return true;
                   }
+                  return false;
                })
                .map((item: ProductItem) => (
                   <ProductItemCard key={item.id} {...item} />
